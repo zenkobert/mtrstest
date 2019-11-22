@@ -26,32 +26,29 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-md-12 form-group"
-                                     th:class="${#fields.hasErrors('mobileNumber')} ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
+                                <div class="col-md-12 form-group">
                                     <input type="text" class="form-control" th:field="*{mobileNumber}"
-                                           th:errorclass="has-error" placeholder="Mobile Number" required/>
+                                           th:errorclass="is-invalid" placeholder="Mobile Number" required/>
                                     <span class="help-block" th:if="${#fields.hasErrors('mobileNumber')}">
-
+                                        <small class="text-danger" th:text="${#fields.errors('mobileNumber')[0]}"/>
                                     </span>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12 form-group"
-                                     th:class="${#fields.hasErrors('firstName')} ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
+                                <div class="col-md-12 form-group">
                                     <input type="text" class="form-control" th:field="*{firstName}"
-                                           th:errorclass="has-error" placeholder="First Name" required/>
+                                           th:errorclass="is-invalid" placeholder="First Name" required/>
                                     <span class="help-block" th:if="${#fields.hasErrors('firstName')}">
-
+                                        <small class="text-danger" th:text="${#fields.errors('firstName')[0]}"/>
                                     </span>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12 form-group"
-                                     th:class="${#fields.hasErrors('lastName')} ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
+                                <div class="col-md-12 form-group">
                                     <input type="text" class="form-control" th:field="*{lastName}"
-                                           th:errorclass="has-error" placeholder="Last Name" required/>
+                                           th:errorclass="is-invalid" placeholder="Last Name" required/>
                                     <span class="help-block" th:if="${#fields.hasErrors('lastName')}">
-
+                                        <small class="text-danger" th:text="${#fields.errors('lastName')[0]}"/>
                                     </span>
                                 </div>
                             </div>
@@ -111,12 +108,11 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12 form-group"
-                                     th:class="${#fields.hasErrors('email')} ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
+                                <div class="col-md-12 form-group">
                                     <input type="text" class="form-control" th:field="*{email}"
-                                           th:errorclass="has-error" placeholder="Email" required/>
+                                           th:errorclass="is-invalid" placeholder="Email" required/>
                                     <span class="help-block" th:if="${#fields.hasErrors('email')}">
-
+                                        <small class="text-danger" th:text="${#fields.errors('email')[0]}"/>
                                     </span>
                                 </div>
                             </div>

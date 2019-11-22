@@ -5,7 +5,10 @@ import com.zezenk.mtrstest.converter.UserToUserDto;
 import com.zezenk.mtrstest.dto.UserDTO;
 import com.zezenk.mtrstest.model.TbUser;
 import com.zezenk.mtrstest.repository.UserRepository;
+import lombok.Synchronized;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -17,6 +20,16 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
         this.userDtoToUserConverter = userDtoToUserConverter;
         this.userToUserDtoConverter = userToUserDtoConverter;
+    }
+
+    @Override
+    public Optional<TbUser> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public Optional<TbUser> findByMobileNumber(String mobileNumber) {
+        return userRepository.findByMobileNumber(mobileNumber);
     }
 
     @Override
