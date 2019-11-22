@@ -1,10 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Registration Form</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+
+    </script>
 </head>
 <body>
-    <h1>Registration</h1>
+<div class="container-fluid" style="margin-top: 20px; margin-left:20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form th:object="${user}" th:action="@{/user/new}" method="post">
+                <div class="pannel-group">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading" style="margin-bottom:35px">
+                            <h1 class="panel-title">Registration</h1>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 form-group"
+                                     th:class="${#fields.hasErrors('mobileNumber')} ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
+                                    <input type="text" class="form-control" th:field="*{mobileNumber}"
+                                           th:errorclass="has-error" placeholder="Mobile Number" required/>
+                                    <span class="help-block" th:if="${#fields.hasErrors('mobileNumber')}">
+
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group"
+                                     th:class="${#fields.hasErrors('firstName')} ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
+                                    <input type="text" class="form-control" th:field="*{firstName}"
+                                           th:errorclass="has-error" placeholder="First Name" required/>
+                                    <span class="help-block" th:if="${#fields.hasErrors('firstName')}">
+
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group"
+                                     th:class="${#fields.hasErrors('lastName')} ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
+                                    <input type="text" class="form-control" th:field="*{lastName}"
+                                           th:errorclass="has-error" placeholder="Last Name" required/>
+                                    <span class="help-block" th:if="${#fields.hasErrors('lastName')}">
+
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div style="padding-left:15px; width:100%">
+                                    <label>Date of Birth</label>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <select class="form-control" th:field="*{month}">
+                                        <option value="none" selected hidden>
+                                            Month
+                                        </option>
+                                        <option th:each="monthValue,iter : ${monthList}"
+                                                th:value="${iter.index + 1}"
+                                                th:text="${monthValue}"
+                                        >
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <select class="form-control" th:field="*{date}">
+                                        <option value="none" selected hidden>
+                                            Date
+                                        </option>
+                                        <option th:each="dateValue : ${dateList}"
+                                                th:value="${dateValue}"
+                                                th:text="${dateValue}"
+                                        >
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <select class="form-control" th:field="*{year}">
+                                        <option value="none" selected hidden>
+                                            Year
+                                        </option>
+                                        <option th:each="yearValue : ${yearList}"
+                                                th:value="${yearValue}"
+                                                th:text="${yearValue}"
+                                        >
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <div class="custom-control custom-radio custom-control-inline"
+                                         th:each="genderType: ${genderMap.maps.entrySet()}">
+                                        <input type="radio" class="custom-control-input"
+                                               th:field="*{gender}"
+                                               th:value="${genderType.value}"/>
+                                        <label
+                                                class="custom-control-label"
+                                                th:for="${#ids.prev('gender')}"
+                                                th:text="${genderType.key}"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group"
+                                     th:class="${#fields.hasErrors('email')} ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
+                                    <input type="text" class="form-control" th:field="*{email}"
+                                           th:errorclass="has-error" placeholder="Email" required/>
+                                    <span class="help-block" th:if="${#fields.hasErrors('email')}">
+
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <button type="submit" class="btn btn-primary button-submit">Register</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -1,0 +1,10 @@
+.button-submit {
+    width: 100%;
+    background-color: darkorchid;
+    border-color: darkorchid;
+}
+
+.button-submit:hover {
+    background-color: darkviolet;
+    border-color: darkviolet;
+}

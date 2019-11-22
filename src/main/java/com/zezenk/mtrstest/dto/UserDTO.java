@@ -1,7 +1,11 @@
 package com.zezenk.mtrstest.dto;
 
 import com.zezenk.mtrstest.model.Gender;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class UserDTO {
 
     private Long id;
@@ -9,8 +13,8 @@ public class UserDTO {
     private String firstName;
     private String lastName;
     private Gender gender;
-    private int date;
-    private int month;
-    private int year;
+    private String date;
+    private String month;
+    private String year;
     private String email;
 }
