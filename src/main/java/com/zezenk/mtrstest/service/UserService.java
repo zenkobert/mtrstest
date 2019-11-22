@@ -1,7 +1,7 @@
 package com.zezenk.mtrstest.service;
 
-import com.zezenk.mtrstest.model.TbUser;
+import com.zezenk.mtrstest.dto.UserDTO;
 
 public interface UserService {
-    TbUser saveUser(TbUser user);
+    UserDTO saveUser(UserDTO user);
 }
