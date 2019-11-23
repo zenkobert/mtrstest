@@ -5,17 +5,3 @@ $(document).ready(function(){
         window.location.href = '/loginpage';
     })
 })
-
-
-//function onSubmit() {
-//    e.stopImmediatePropagation();
-//    e.preventDefault();
-//    $('.form-submit').attr('disabled', 'disabled');
-//    return true;
-//}
-
-//$("#btn-register").click(function(e) {
-//    e.stopImmediatePropagation();
-//    e.preventDefault();
-//    $('.form-submit').attr('disabled', 'disabled');
-//});

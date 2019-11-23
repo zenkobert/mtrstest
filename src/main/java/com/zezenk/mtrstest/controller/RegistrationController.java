@@ -3,7 +3,6 @@ package com.zezenk.mtrstest.controller;
 import com.zezenk.mtrstest.dto.GenderMapDTO;
 import com.zezenk.mtrstest.dto.UserDTO;
 import com.zezenk.mtrstest.model.Gender;
-import com.zezenk.mtrstest.model.TbUser;
 import com.zezenk.mtrstest.service.UserService;
 import com.zezenk.mtrstest.service.UserValidationService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +25,7 @@ import java.util.*;
 public class RegistrationController {
 
     private static final String USER_REGISTRATION_URL = "registration";
-    private static final String LOGIN_PAGE_URL = "loginpage";
+    private static final String LOGIN_PAGE_URL = "login-page";
 
     private final UserService userService;
     private final UserValidationService userValidationService;
