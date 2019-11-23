@@ -7,27 +7,22 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-
-    </script>
+    <link rel="stylesheet" th:href="@{/main.css}"/>
 </head>
 <body>
 <div class="container-fluid" style="margin-top: 20px; margin-left:20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form th:object="${user}" th:action="@{/user/new}" method="post">
+            <form action="#" th:object="${user}" th:action="@{/user/new}" method="post" onsubmit="return onSubmit()">
                 <div class="pannel-group">
                     <div class="panel panel-primary">
                         <div class="panel-heading" style="margin-bottom:35px">
                             <h1 class="panel-title">Registration</h1>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body" style="padding:10px" th:classappend="${user.id != null} ? gray-out : ''">
                             <div class="row">
                                 <div class="col-md-12 form-group">
-                                    <input type="text" class="form-control" th:field="*{mobileNumber}"
+                                    <input type="text" class="form-control form-submit" th:field="*{mobileNumber}" th:disabled="${user.id != null}"
                                            th:errorclass="is-invalid" placeholder="Mobile Number" required/>
                                     <span class="help-block" th:if="${#fields.hasErrors('mobileNumber')}">
                                         <small class="text-danger" th:text="${#fields.errors('mobileNumber')[0]}"/>
@@ -36,7 +31,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12 form-group">
-                                    <input type="text" class="form-control" th:field="*{firstName}"
+                                    <input type="text" class="form-control form-submit" th:field="*{firstName}" th:disabled="${user.id != null}"
                                            th:errorclass="is-invalid" placeholder="First Name" required/>
                                     <span class="help-block" th:if="${#fields.hasErrors('firstName')}">
                                         <small class="text-danger" th:text="${#fields.errors('firstName')[0]}"/>
@@ -45,7 +40,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12 form-group">
-                                    <input type="text" class="form-control" th:field="*{lastName}"
+                                    <input type="text" class="form-control form-submit" th:field="*{lastName}" th:disabled="${user.id != null}"
                                            th:errorclass="is-invalid" placeholder="Last Name" required/>
                                     <span class="help-block" th:if="${#fields.hasErrors('lastName')}">
                                         <small class="text-danger" th:text="${#fields.errors('lastName')[0]}"/>
@@ -57,7 +52,7 @@
                                     <label>Date of Birth</label>
                                 </div>
                                 <div class="col-md-3 form-group">
-                                    <select class="form-control" th:field="*{month}">
+                                    <select class="form-control form-submit" th:field="*{month}" th:disabled="${user.id != null}">
                                         <option value="none" selected hidden>
                                             Month
                                         </option>
@@ -69,7 +64,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-2 form-group">
-                                    <select class="form-control" th:field="*{date}">
+                                    <select class="form-control form-submit" th:field="*{date}" th:disabled="${user.id != null}">
                                         <option value="none" selected hidden>
                                             Date
                                         </option>
@@ -81,7 +76,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-2 form-group">
-                                    <select class="form-control" th:field="*{year}">
+                                    <select class="form-control form-submit" th:field="*{year}" th:disabled="${user.id != null}">
                                         <option value="none" selected hidden>
                                             Year
                                         </option>
@@ -97,7 +92,7 @@
                                 <div class="col-md-12 form-group">
                                     <div class="custom-control custom-radio custom-control-inline"
                                          th:each="genderType: ${genderMap.maps.entrySet()}">
-                                        <input type="radio" class="custom-control-input"
+                                        <input type="radio" class="custom-control-input form-submit" th:disabled="${user.id != null}"
                                                th:field="*{gender}"
                                                th:value="${genderType.value}"/>
                                         <label
@@ -109,7 +104,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12 form-group">
-                                    <input type="text" class="form-control" th:field="*{email}"
+                                    <input type="text" class="form-control form-submit" th:field="*{email}" th:disabled="${user.id != null}"
                                            th:errorclass="is-invalid" placeholder="Email" required/>
                                     <span class="help-block" th:if="${#fields.hasErrors('email')}">
                                         <small class="text-danger" th:text="${#fields.errors('email')[0]}"/>
@@ -118,7 +113,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12 form-group">
-                                    <button type="submit" class="btn btn-primary button-submit">Register</button>
+                                    <input id="btn-register" type="submit"
+                                           class="btn btn-primary button-submit form-submit"
+                                           value="Register" th:disabled="${user.id != null}"
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -127,6 +125,25 @@
             </form>
         </div>
     </div>
+    <div class="row" style="margin-top:30px">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="row" th:if="${user.id != null}">
+                <div class="col-md-12 form-group">
+                    <input id="btn-login" type="submit" class="btn btn-primary button-submit" value="Login"/>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="/main.js"></script>
+
 </body>
 </html>

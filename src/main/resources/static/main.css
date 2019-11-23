@@ -1,4 +1,7 @@
-.button-submit {
+.button-submit,
+.button-submit:disabled,
+.button-submit:active,
+.button-submit:focus {
     width: 100%;
     background-color: darkorchid;
     border-color: darkorchid;
@@ -7,4 +10,8 @@
 .button-submit:hover {
     background-color: darkviolet;
     border-color: darkviolet;
+}
+
+.gray-out {
+    background-color : lightgray;
 }

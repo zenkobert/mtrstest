@@ -15,7 +15,6 @@ public class UserDTO {
     private Long id;
 
     @NotNull
-    @Size(min = 8, max = 12)
     private String mobileNumber;
 
     @NotNull
