@@ -2,7 +2,7 @@ CREATE DATABASE mtrstest;
 
 CREATE TABLE public.tb_user (
 	id serial PRIMARY KEY,
-	mobile_number varchar(12) UNIQUE NOT NULL,
+	mobile_number varchar(13) UNIQUE NOT NULL,
 	first_name varchar(255) NOT NULL,
 	last_name varchar(255) NOT NULL,
 	gender varchar(10) NULL,
