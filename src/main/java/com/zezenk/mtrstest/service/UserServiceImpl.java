@@ -5,7 +5,6 @@ import com.zezenk.mtrstest.converter.UserToUserDto;
 import com.zezenk.mtrstest.dto.UserDTO;
 import com.zezenk.mtrstest.model.TbUser;
 import com.zezenk.mtrstest.repository.UserRepository;
-import lombok.Synchronized;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

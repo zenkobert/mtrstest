@@ -5,11 +5,11 @@ import com.zezenk.mtrstest.dto.UserDTO;
 import com.zezenk.mtrstest.model.Gender;
 import com.zezenk.mtrstest.model.TbUser;
 import com.zezenk.mtrstest.service.UserService;
+import com.zezenk.mtrstest.service.UserValidationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +20,6 @@ import java.time.Month;
 import java.time.Year;
 import java.time.format.TextStyle;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Controller
 @Slf4j
@@ -29,11 +27,13 @@ public class RegistrationController {
 
     private static final String USER_REGISTRATION_URL = "registration";
     private static final String LOGIN_PAGE_URL = "loginpage";
-    private static final String INDONESIA_NO_REGEX = "^(^\\+62\\s?|^0)(\\d{3,4}-?){2}\\d{3,4}$";
-    private final UserService userService;
 
-    public RegistrationController(UserService userService) {
+    private final UserService userService;
+    private final UserValidationService userValidationService;
+
+    public RegistrationController(UserService userService, UserValidationService userValidationService) {
         this.userService = userService;
+        this.userValidationService = userValidationService;
     }
 
     private static GenderMapDTO genderMap = new GenderMapDTO();
@@ -78,8 +78,8 @@ public class RegistrationController {
                                final RedirectAttributes redirectAttributes) {
 
 
-        if (user.getEmail() != null) validateEmail(user, bindingResult);
-        if (user.getMobileNumber() != null) validatePhoneNumber(user, bindingResult);
+        if (user.getEmail() != null) userValidationService.validateEmail(user, bindingResult);
+        if (user.getMobileNumber() != null) userValidationService.validatePhoneNumber(user, bindingResult);
 
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(objectError -> log.debug(objectError.toString()));
@@ -87,7 +87,7 @@ public class RegistrationController {
             model.addAttribute("user", user);
             initDefaultAttributes(model);
 
-            return "registration";
+            return USER_REGISTRATION_URL;
         }
 
         UserDTO savedUser = userService.saveUser(user);
@@ -101,41 +101,5 @@ public class RegistrationController {
         model.addAttribute("dateList", dateList);
         model.addAttribute("monthList", monthList);
         model.addAttribute("yearList", yearList);
-    }
-
-    private void validatePhoneNumber(UserDTO user, BindingResult bindingResult) {
-        user.setMobileNumber(
-                user.getMobileNumber()
-                        .trim()
-                        .replace(" ", "")
-                        .replace("-", "")
-                        .replace("+62", "0")
-        );
-
-        Pattern p = Pattern.compile(INDONESIA_NO_REGEX);
-        Matcher m = p.matcher(user.getMobileNumber());
-        if (!m.find() || !user.getMobileNumber().startsWith("08")) {
-            FieldError error = new FieldError("user", "mobileNumber", "Please enter valid Indonesian phone number");
-            bindingResult.addError(error);
-            return;
-        }
-
-        Optional<TbUser> optionalUser = userService.findByMobileNumber(user.getMobileNumber());
-
-        if (optionalUser.isPresent()) {
-            FieldError error = new FieldError("user", "mobileNumber", "The number has already been registered");
-            bindingResult.addError(error);
-        }
-    }
-
-    private void validateEmail(UserDTO user, BindingResult bindingResult) {
-        user.setEmail(user.getEmail().toLowerCase().trim());
-
-        Optional<TbUser> optionalUser = userService.findByMobileNumber(user.getMobileNumber());
-
-        if (optionalUser.isPresent()) {
-            FieldError error = new FieldError("user", "email", "The email has already been registered");
-            bindingResult.addError(error);
-        }
     }
 }
