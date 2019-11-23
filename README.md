@@ -14,3 +14,39 @@
 * Unit Test :
   * [JUnit 4](https://junit.org/junit4/)
   * [Mockito 3](https://site.mockito.org/)
+
+### Prerequisites
+
+Install PostgreSQL then run below script in the SQL editor
+
+```
+CREATE DATABASE mtrstest;
+
+CREATE TABLE public.tb_user (
+	id serial PRIMARY KEY,
+	mobile_number varchar(13) UNIQUE NOT NULL,
+	first_name varchar(255) NOT NULL,
+	last_name varchar(255) NOT NULL,
+	gender varchar(10) NULL,
+	email varchar(355) UNIQUE NOT NULL,
+	date_of_birth date NULL
+)
+WITH (
+	OIDS=FALSE
+) ;
+
+```
+
+### Configuration
+
+Below is the default database related configuration in application.properties file.
+Feel free to edit it according to your local database setting.
+
+```
+spring.jpa.database=POSTGRESQL
+spring.datasource.platform=postgres
+spring.datasource.url=jdbc:postgresql://localhost:5432/mtrstest
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+spring.jpa.show-sql=true
+```
